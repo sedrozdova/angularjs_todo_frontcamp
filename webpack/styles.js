@@ -13,7 +13,7 @@ module.exports = function returnStylesConfig() {
 
                         // Process external/third-party styles
                         {
-                            exclude: path.resolve(__dirname, '../src'),
+                            // exclude: path.resolve(__dirname, '../src'),
                             loader: 'css-loader',
                             options: {
                                 importLoaders: 1,
@@ -23,7 +23,7 @@ module.exports = function returnStylesConfig() {
                         },
 
                         // Process internal/project styles (from src folder)
-                        {
+                        /*{
                             include: path.resolve(__dirname, '../src'),
                             loader: 'css-loader',
                             options: {
@@ -35,6 +35,25 @@ module.exports = function returnStylesConfig() {
                                 localIdentName: '[name]-[local]-[hash:base64:5]',
                                 // CSS Nano http://cssnano.co/
                                 minimize: false,
+                            },
+                        },*/
+
+                        // To use autoprefixer
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: true,
+                            },
+                        },
+
+                        // Compile Sass to CSS
+                        // https://github.com/webpack-contrib/sass-loader
+                        // Install dependencies before uncommenting: yarn add --dev sass-loader node-sass
+                        {
+                            test: /\.(scss|sass)$/,
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true,
                             },
                         },
                     ],

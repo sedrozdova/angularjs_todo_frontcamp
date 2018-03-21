@@ -1,0 +1,55 @@
+.todo-app {
+    padding: 12px 32px;
+
+    .tasks {
+        &__created-at {
+            font-size: 12px;
+            opacity: 0.7;
+        }
+
+        &__item {
+            cursor: pointer;
+
+            &_done {
+                text-decoration: line-through;
+            }
+        }
+    }
+
+    .filter {
+        list-style: none;
+
+        &__item {
+            display: inline-block;
+            margin: 0 12px;
+            cursor: pointer;
+
+            &:first-of-type {
+                margin: 0;
+            }
+
+            &::after {
+                content: '';
+                display: block;
+                margin-top: 8px;
+                width: 0;
+                height: 3px;
+                background: #fff;
+                transition: all .3s;
+            }
+
+            &_active {
+                color: lightgreen;
+                &:after{
+                    width: 70%;
+                }
+            }
+
+            &:hover {
+                &::after {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
