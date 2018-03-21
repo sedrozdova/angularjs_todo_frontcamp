@@ -2,7 +2,8 @@ import uuid from 'uuid';
 import moment from 'moment';
 
 function addEditController($scope, todoFactory, $routeParams, $location) {
-    $scope.todoSubmited = false;
+    $scope.completedTasks = todoFactory.getCompletedTasks();
+    $scope.newTasks = todoFactory.getNewTasks();
     $scope.changingTodoId = $routeParams.id || '';
 
     $scope.addTodo = () => {
@@ -22,13 +23,16 @@ function addEditController($scope, todoFactory, $routeParams, $location) {
         $scope.newTodo = '';
         $scope.completedTasks = todoFactory.getCompletedTasks();
         $scope.newTasks = todoFactory.getNewTasks();
+        console.log('$scope from addEditForm: ', $scope);
         $location.url('/');
     };
     $scope.editTodo = function () {
+        console.log('$scope from addEditForm --before: ', $scope);
         let newTitle = $scope.newTodo;
         todoFactory.changeTodoTitle($scope.changingTodoId, newTitle);
         $scope.newTodo = '';
         $scope.changingTodoId = '';
+        console.log('$scope from addEditForm --after: ', $scope);
         $location.url('/');
     };
 }
