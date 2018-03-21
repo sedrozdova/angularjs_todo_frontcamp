@@ -1,0 +1,61 @@
+{
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "allowImportExportEverywhere": true
+    },
+    "env": {
+        "browser": true,
+        "es6": true,
+        "jest/globals": true
+    },
+    "plugins": [
+        "prettier",
+        "jest"
+    ],
+    "extends": [
+        "prettier",
+        "airbnb",
+        "prettier/standard"
+    ],
+    "rules": {
+
+        "arrow-body-style": ["error", "as-needed"],
+        "linebreak-style": "off",
+        "key-spacing": "off",
+        "no-unused-expressions": [
+            "error",
+            {
+                "allowShortCircuit": true,
+                "allowTernary": true,
+                "allowTaggedTemplates": true
+            }
+        ],
+
+        "no-plusplus": "off",
+        "new-cap": "off",
+        "indent": [
+            "error",
+            4,
+            {
+                "SwitchCase": 1
+            }
+        ],
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "no-underscore-dangle": "off",
+        "class-methods-use-this": "off",
+        "object-shorthand": [
+            "error",
+            "always",
+            {
+                "avoidQuotes": false
+            }
+        ],
+        "jsx-a11y/no-static-element-interactions": "off"
+    }
+}
