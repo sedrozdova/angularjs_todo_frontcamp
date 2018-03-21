@@ -2,15 +2,30 @@ import 'angular';
 import 'angular-route';
 import moment from 'moment';
 import uuid from 'uuid';
+import { addEditController } from './components/addEditForm/addEditForm.ctrl.js';
+import { mainController } from './components/main/main.ctrl.js';
 
 import './index.scss';
 
 const app = angular.module('todoApp', ['ngRoute']);
 
-app.filter('customDate', function () {
-    return function (d) {
-        return moment(d).format('DD/MM/YYYY hh:mm');
-    };
+app.config(function($routeProvider, $locationProvider) {
+    $routeProvider
+        .when('/', {
+            templateUrl: './src/components/main/main.tpl.htm',
+            controller: 'mainController'
+        })
+        .when('/todo/add', {
+            templateUrl: './src/components/addEditForm/addEditForm.tpl.htm',
+            controller: 'addEditController'
+        })
+        .when('/todo/edit/:id', {
+            templateUrl: './src/components/addEditForm/addEditForm.tpl.htm',
+            controller: 'addEditController'
+        })
+        .otherwise({redirectTo: '/'});
+
+    $locationProvider.html5Mode(true);
 });
 
 app.directive('min20symbols', function () {
@@ -25,6 +40,12 @@ app.directive('min20symbols', function () {
                 return viewValue.length > 20;
             };
         }
+    };
+});
+
+app.filter('customDate', function () {
+    return function (d) {
+        return moment(d).format('DD/MM/YYYY hh:mm');
     };
 });
 
@@ -108,56 +129,7 @@ app.controller('todoController', ['$scope', 'todoFactory', ($scope, todoFactory)
     $scope.textFilter = '';
     $scope.sortType = '';
     $scope.changingTodoId = '';
-
-    $scope.addTodo = () => {
-        let todo = {
-            text: $scope.newTodo,
-            id: uuid.v1(),
-            done: false,
-            createdAt: moment()
-        };
-
-        if (!todo.text) {
-            alert('Text of todo is mandatory...');
-            return;
-        }
-
-        todoFactory.addTodo(todo);
-        $scope.newTodo = '';
-        $scope.completedTasks = todoFactory.getCompletedTasks();
-        $scope.newTasks = todoFactory.getNewTasks();
-    };
-    $scope.editTodo = function() {
-        let newTitle = $scope.newTodo;
-        todoFactory.changeTodoTitle($scope.changingTodoId, newTitle);
-        $scope.newTodo = '';
-        $scope.changingTodoId = '';
-    };
-    $scope.completeTask = (task) => {
-        todoFactory.completeTask(task);
-        $scope.completedTasks = todoFactory.getCompletedTasks();
-        $scope.newTasks = todoFactory.getNewTasks();
-    };
-    $scope.activateEditTodo = function(id) {
-        console.log('$scope: ', $scope);
-        $scope.changingTodoId = id;
-        $scope.newTodo = $scope.tasks.find(elem => elem.id === id).text;
-    };
-
-    $scope.dateFilter = task => {
-        if ($scope.filter === -1) {
-            return true;
-        }
-
-        return Math.abs(moment(task.createdAt).diff(moment(), 'days')) <= $scope.filter;
-    };
-
-    $scope.changeFilter = filter => {
-        $scope.filter = filter;
-    };
-
-    $scope.changeTodoSortType = function(type) {
-        $scope.sortType = type;
-    };
-
 }]);
+
+app.controller('mainController', mainController);
+app.controller('addEditController', addEditController);

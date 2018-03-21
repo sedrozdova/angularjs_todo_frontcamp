@@ -1,0 +1,17 @@
+<!-- form -->
+<h4 ng-if="!changingTodoId">Add a Task</h4>
+<h4 ng-if="changingTodoId">Edit Task</h4>
+<form
+    ng-submit="addTodo()"
+    name='form'
+    class="add-form"
+>
+    <input
+        id="new-todo"
+        ng-model='newTodo'
+        placeholder="What you need to do?"
+    >
+    <input ng-if="!changingTodoId" type="button" value="Add todo" ng-click="addTodo()" />
+    <input ng-if="changingTodoId" type="button" value="Edit todo" ng-click="editTodo()" />
+</form>
+<a href="/">Home</a>

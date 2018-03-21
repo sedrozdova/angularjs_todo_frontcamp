@@ -1,6 +1,8 @@
 const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
+const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+
 const styles = require('./webpack/styles');
 const jsConfig = require('./webpack/js');
 const html = require('./webpack/html');
@@ -26,7 +28,12 @@ const common = merge([
             extensions: ['.js'],
         },
 
-        plugins: [],
+        plugins: [
+            new ngAnnotatePlugin({
+                add: true,
+                // other ng-annotate options here
+            }),
+        ],
     },
 
     jsConfig(),
