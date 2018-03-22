@@ -17,7 +17,7 @@ const PATHS = {
 
 const common = merge([
     {
-        entry: ['babel-polyfill', './src/todo.js'],
+        entry: ['babel-polyfill', './src/index.js'],
 
         output: {
             filename: 'bundle.js',

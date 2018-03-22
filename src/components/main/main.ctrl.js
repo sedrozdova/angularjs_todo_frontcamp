@@ -40,4 +40,4 @@ function mainController($scope, todoFactory, $filter, $location) {
 
 mainController.$inject = ['$scope', 'todoFactory', '$filter', '$location'];
 
-export { mainController };
+export default mainController;

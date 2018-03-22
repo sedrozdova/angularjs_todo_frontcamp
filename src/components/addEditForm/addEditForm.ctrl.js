@@ -39,4 +39,4 @@ function addEditController($scope, todoFactory, $routeParams, $location) {
 
 addEditController.$inject = ['$scope', 'todoFactory', '$routeParams', '$location'];
 
-export { addEditController };
+export default addEditController;
